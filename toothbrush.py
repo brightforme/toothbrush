@@ -31,7 +31,7 @@ def list(ctx, app, stage):
     key_in_redis = "{}:{}".format(app, stage)
     env_vars = ctx.obj['redis_store'].hgetall(key_in_redis)
     if not env_vars:
-        click.echo(click.style("Can't find this app bruh", fg="blue"),
+        click.echo(click.style("Can't find this app", fg="blue"),
                    err=True)
 
     for k, v in env_vars.items():
@@ -49,7 +49,7 @@ def set(ctx, app, stage, name, value):
     try:
         ctx.obj['redis_store'].hset(key_in_redis, name, value)
     except:
-        click.echo(click.style("Something went wrong bruh", fg="red"),
+        click.echo(click.style("Something went wrong", fg="red"),
                    err=True)
 
 
@@ -63,7 +63,7 @@ def unset(ctx, app, stage, name):
     try:
         ctx.obj['redis_store'].hdel(key_in_redis, name)
     except:
-        click.echo(click.style("Something went wrong bruh", fg="red"),
+        click.echo(click.style("Something went wrong", fg="red"),
                    err=True)
 
 
@@ -77,7 +77,7 @@ def export(ctx, app, stage, target, dry_run):
     key_in_redis = "{}:{}".format(app, stage)
     env_vars = ctx.obj['redis_store'].hgetall(key_in_redis)
     if not env_vars:
-        click.echo(click.style("Can't find this app bruh", fg="blue"),
+        click.echo(click.style("Can't find this app", fg="blue"),
                    err=True)
 
     with open(target, 'w') as f:
