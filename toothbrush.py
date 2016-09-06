@@ -42,7 +42,7 @@ def toothbrush(ctx, redis_host, redis_password, redis_port, redis_db):
 
 @toothbrush.command()
 @click.option('--app', default=CONFIG.get("app.name"))
-@click.option('--stage', default=CONFIG.get("app.stage"))
+@click.option('--stage', default=CONFIG.get("app.stage", "production"))
 @click.pass_context
 def list(ctx, app, stage):
     key_in_redis = "{}:{}".format(app, stage)
@@ -57,7 +57,7 @@ def list(ctx, app, stage):
 
 @toothbrush.command()
 @click.option('--app', default=CONFIG.get("app.name"))
-@click.option('--stage', default=CONFIG.get("app.stage"))
+@click.option('--stage', default=CONFIG.get("app.stage", "production"))
 @click.option('--name', required=True)
 @click.option('--value', required=True)
 @click.pass_context
@@ -72,7 +72,7 @@ def set(ctx, app, stage, name, value):
 
 @toothbrush.command()
 @click.option('--app', default=CONFIG.get("app.name"))
-@click.option('--stage', default=CONFIG.get("app.stage"))
+@click.option('--stage', default=CONFIG.get("app.stage", "production"))
 @click.option('--name', required=True)
 @click.pass_context
 def unset(ctx, app, stage, name):
@@ -86,7 +86,7 @@ def unset(ctx, app, stage, name):
 
 @toothbrush.command()
 @click.option('--app', default=CONFIG.get("app.name"))
-@click.option('--stage', default=CONFIG.get("app.stage"))
+@click.option('--stage', default=CONFIG.get("app.stage", "production"))
 @click.option('--target', required=True)
 @click.option('-n', '--dry-run', is_flag=True)
 @click.pass_context
